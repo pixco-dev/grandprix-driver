@@ -194,12 +194,37 @@ tr.me td{background:rgba(232,53,42,.25)}
 }
 @media (max-height:430px){#tower li{line-height:1.2;font-size:11px}#mini{width:96px;height:96px}#dash{padding:5px 12px}#gear{font-size:32px}.pedal{height:120px}#pBrk{height:100px}}
 @media (prefers-reduced-motion:reduce){#drsBtn.avail{animation:none}}
-.mpIn{width:100%;height:40px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:600 14px "Noto Sans KR";padding:0 12px}
+.mpIn{width:100%;height:42px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:600 16px "Noto Sans KR";padding:0 12px;touch-action:manipulation}
 .mpIn:focus-visible{outline:2px solid var(--yel);outline-offset:1px}
 #mpStatus{color:var(--yel);min-height:16px;margin-top:8px}
 #mpLobby{margin-top:8px;display:grid;gap:4px}
 #mpLobby .mprow{display:flex;align-items:center;gap:8px;font:700 13px "Noto Sans KR";padding:6px 9px;border-radius:9px;background:rgba(255,255,255,.05)}
 #mpLobby .mprow i{flex:0 0 14px;width:14px;height:14px;border-radius:4px}
+#lbList{margin-top:6px}
+#lbList table{width:100%;border-collapse:collapse}
+#lbList td{padding:4px 4px;border-bottom:1px solid var(--line);font-size:13px}
+#lbList td:last-child{text-align:right;font-family:"Titillium Web";font-variant-numeric:tabular-nums}
+#lbList tr.me td{background:rgba(232,53,42,.2)}
+#lbList .lbEmpty{opacity:.6;font-size:13px;padding:6px 0}
+#authScreen{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:calc(24px + var(--st)) 24px;background:radial-gradient(1000px 500px at 50% -10%,rgba(232,53,42,.18),transparent 60%),linear-gradient(180deg,#07080c,#05060a)}
+#authScreen.hide{display:none!important}
+.asWrap{width:100%;max-width:360px;text-align:center}
+.asWrap h1{font:900 clamp(30px,8vw,44px)/1 "Noto Sans KR";margin:0 0 8px}
+.asWrap h1 em{font-style:normal;color:var(--red)}
+.asLead{opacity:.7;font-size:13px;margin:0 0 20px;line-height:1.55}
+.asCard{display:grid;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:16px;padding:18px}
+.asCard .mpIn{height:46px}
+.asMsg{min-height:16px;color:var(--yel);font:700 12px "Noto Sans KR";text-align:left}
+.asBtns{display:flex;gap:8px}
+.asBtns button{flex:1;height:48px;border-radius:11px;border:0;font:800 15px "Noto Sans KR";cursor:pointer}
+.asPri{background:var(--red);color:#fff}
+.asSec{background:#20232b;color:#fff}
+.asGuest{background:none;border:0;color:#9aa0a8;font:700 13px "Noto Sans KR";cursor:pointer;padding:6px;margin-top:2px}
+.asGuest:active{color:#fff}
+#acctChip{margin-left:auto;display:flex;align-items:center;gap:8px;font:700 13px "Noto Sans KR"}
+#acctChip b{color:#fff}
+#acctChip button{height:30px;padding:0 11px;border-radius:8px;border:1px solid var(--line);background:rgba(255,255,255,.05);color:#fff;font:700 12px "Noto Sans KR";cursor:pointer}
+#mpAcct{font-size:12px}
 </style>
 </head>
 <body>
@@ -262,7 +287,7 @@ tr.me td{background:rgba(232,53,42,.25)}
 
 <div id="menu" class="ov">
   <div class="mGrid">
-    <header class="mHead"><h1>그랑프리 <em>드라이버</em></h1><p class="lead">24개 서킷 · 11개 팀 · AI와 레이스 또는 혼자 퀄리파잉</p></header>
+    <header class="mHead"><h1>그랑프리 <em>드라이버</em></h1><p class="lead">24개 서킷 · 11개 팀 · AI와 레이스 또는 혼자 퀄리파잉</p><div id="acctChip"></div></header>
     <section class="mTracks" aria-label="서킷 선택"><div class="mLabel">서킷 <span id="trackCount"></span></div><div id="trackList" role="listbox"></div></section>
     <section class="mMain">
       <div class="hero">
@@ -288,7 +313,7 @@ tr.me td{background:rgba(232,53,42,.25)}
         <div class="pane" data-p="assist">
           <div id="assists"></div>
         </div>
-        <div class="pane" data-p="rec" id="recPane"><div class="recHead"><span id="recTitle"></span><button id="recClr">이 서킷 기록 지우기</button></div><div id="recList"></div><div class="note">트랙 이탈 감점이 더해진 시간으로 기록되고, '랩 무효'로 설정하면 이탈한 랩은 빠져요. 세션마다 가장 빠른 랩 1개가 들어가고, 서킷마다 상위 10개를 이 기기에 저장해요.</div></div>
+        <div class="pane" data-p="rec" id="recPane"><div class="recHead"><span id="recTitle"></span><button id="recClr">이 서킷 기록 지우기</button></div><div id="recList"></div><div class="recHead" style="margin-top:12px"><span>온라인 순위 (이 서킷)</span></div><div id="lbList"></div><div class="note">트랙 이탈 감점이 더해진 시간으로 기록되고, '랩 무효'로 설정하면 이탈한 랩은 빠져요. 세션마다 가장 빠른 랩 1개가 들어가고, 서킷마다 상위 10개를 이 기기에 저장해요.</div></div>
         <div class="pane" data-p="view">
           <div class="row"><label>시점</label><div class="seg" id="camSel"></div></div>
           <div class="row"><label>그래픽</label><div class="seg" id="gfxSel"></div></div>
@@ -296,6 +321,7 @@ tr.me td{background:rgba(232,53,42,.25)}
           <div class="note">트랙은 실제 서킷 좌표(bacinger/f1-circuits, MIT)를 바탕으로 했고 고저차는 없어요. 차량은 2022년 이후 규정 차의 비례를 따랐고, 팀·드라이버·리버리는 가상이에요.</div>
         </div>
         <div class="pane" data-p="mp" id="mpPane">
+          <div id="authWrap"><div id="mpAcct" class="note"></div></div>
           <div class="row"><label>서버 주소</label><input id="mpUrl" class="mpIn" placeholder="https://내앱.onrender.com (비우면 현재 주소)"></div>
           <div class="row"><label>내 이름</label><input id="mpName" class="mpIn" maxlength="16" placeholder="플레이어"></div>
           <div class="row"><label>방 코드</label><input id="mpRoom" class="mpIn" maxlength="4" placeholder="참가 시 입력 (예: ABCD)" style="text-transform:uppercase"></div>
@@ -310,6 +336,19 @@ tr.me td{background:rgba(232,53,42,.25)}
   </div>
 </div>
 
+<div id="authScreen" class="ov">
+  <div class="asWrap">
+    <h1>그랑프리 <em>드라이버</em></h1>
+    <p class="asLead">계정으로 로그인하면 이름이 고정되고,<br>완주한 최고 랩이 온라인 순위표에 올라가요.</p>
+    <div class="asCard">
+      <input id="asUser" class="mpIn" maxlength="16" placeholder="아이디 (2~16자)" autocomplete="username" autocapitalize="off">
+      <input id="asPass" class="mpIn" type="password" maxlength="40" placeholder="비밀번호 (4자 이상)" autocomplete="current-password">
+      <div id="asMsg" class="asMsg"></div>
+      <div class="asBtns"><button id="asLogin" class="asPri">로그인</button><button id="asSignup" class="asSec">회원가입</button></div>
+      <button id="asGuest" class="asGuest">계정 없이 게스트로 시작하기 →</button>
+    </div>
+  </div>
+</div>
 <div id="loading" class="ov hide">트랙 준비 중…</div>
 
 <div id="pause" class="ov center hide"><div class="card"><h3>일시정지</h3>
@@ -1508,6 +1547,9 @@ function buildLED(){const g=new GB();g.box(0,0,0,.01,.012,.011,[1,1,1],1);return
 return{TEAMDEF,makeAtlas,buildWorld,buildHalo,buildCar:buildCarR,buildFlap,buildWheel,buildHelmet,buildWheelSW,buildLED,env,THEMES,tube};
 })();
 </script>
+<script>// iOS/아이패드: 핀치·더블탭 확대 방지 (입력칸 확대는 16px 폰트로 이미 방지)
+['gesturestart','gesturechange','gestureend'].forEach(t=>document.addEventListener(t,e=>{e.preventDefault()},{passive:false}));
+</script>
 <script>// ===== NET: 멀티플레이 WebSocket 클라이언트 (서버는 상태를 중계만, 각자 자기 차만 시뮬레이션) =====
 window.NET=(function(){
  let ws=null;
@@ -1517,7 +1559,7 @@ window.NET=(function(){
  function connect(url,room,meta,cb){
   try{if(ws){try{ws.onclose=null;ws.close()}catch(e){}}ws=new WebSocket(url)}catch(e){cb&&cb(false,e.message);return}
   S.connectCb=cb;S.players={};S.buf={};S.roster=null;
-  ws.onopen=()=>{S.on=true;send({t:'join',room:room||'',name:meta.name,team:meta.team,color:meta.color,car:meta.car,cmp:meta.cmp})};
+  ws.onopen=()=>{S.on=true;send({t:'join',room:room||'',name:meta.name,team:meta.team,color:meta.color,car:meta.car,cmp:meta.cmp,token:meta.token})};
   ws.onmessage=ev=>{let m;try{m=JSON.parse(ev.data)}catch(e){return}handle(m)};
   ws.onclose=()=>{S.on=false;emit('close')};
   ws.onerror=()=>{if(S.connectCb){S.connectCb(false,'서버에 연결할 수 없어요');S.connectCb=null}};
@@ -1743,7 +1785,7 @@ function teamPick(){const el=$('teamSel');
  el.querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{OPT.team=+b.dataset.i;saveOpt();updSummary();el.querySelectorAll('button').forEach(o=>{o.classList.toggle('on',o===b);o.setAttribute('aria-pressed',o===b)});bgRebuild()}))}
 function modeUI(){const q=isQ();seg('penSel',[1,3,5,-1],'qPen',v=>v<0?'랩 무효':'+'+v+'초');document.body.classList.toggle('quali',q);$('lapLbl').textContent=q?'타임 랩':'레이스 길이';
  seg('lapSel',[1,3,5,10],'laps',v=>q?v+'개':v+'랩');$('startBtn').textContent=q?'피트에서 나가기':'그리드로 나가기'}
-function recPane(){const id=OPT.track;$('recTitle').textContent=SIM.TRACKS[id].name+' 퀄리파잉 기록';$('recList').innerHTML=recTable(id,null);const b=$('recClr');b.classList.remove('arm');b.textContent='이 서킷 기록 지우기';b.style.display=getRecs(id).length?'':'none'}
+function recPane(){const id=OPT.track;$('recTitle').textContent=SIM.TRACKS[id].name+' 퀄리파잉 기록';$('recList').innerHTML=recTable(id,null);const b=$('recClr');b.classList.remove('arm');b.textContent='이 서킷 기록 지우기';b.style.display=getRecs(id).length?'':'none';if(typeof loadLeaderboard==='function')loadLeaderboard(id)}
 $('recClr').addEventListener('click',()=>{const b=$('recClr');if(!b.classList.contains('arm')){b.classList.add('arm');b.textContent='한 번 더 누르면 지워져요';return}
  try{localStorage.removeItem(recKey(OPT.track));localStorage.removeItem(trKey(OPT.track))}catch(e){}recPane()});
 function buildMenu(){trackCards();teamPick();seg('modeSel',['race','quali'],'mode',v=>v==='race'?'레이스 (AI 10대)':'퀄리파잉 (혼자)');seg('lapSel',[1,3,5,10],'laps',v=>v+'랩');seg('diffSel',[0,1,2,3],'diff',(v,i)=>DIFF[i].n);
@@ -1752,6 +1794,37 @@ function buildMenu(){trackCards();teamPick();seg('modeSel',['race','quali'],'mod
 buildMenu();
 /* ===== 멀티플레이 wiring ===== */
 let netAcc=0;
+/* ===== 계정/로그인 ===== */
+let AUTH={token:null,username:null};
+try{const a=JSON.parse(localStorage.getItem('gp-auth')||'null');if(a&&a.token)AUTH=a}catch(e){}
+function saveAuth(){try{localStorage.setItem('gp-auth',JSON.stringify(AUTH))}catch(e){}}
+function api(p,opts){opts=opts||{};opts.headers=Object.assign({'Content-Type':'application/json'},opts.headers||{});if(AUTH.token)opts.headers.Authorization='Bearer '+AUTH.token;
+ return fetch(p,opts).then(async r=>{let j=null;try{j=await r.json()}catch(e){}if(!r.ok)throw new Error((j&&j.error)||('오류 '+r.status));return j})}
+function authMsg(m){const e=$('asMsg');if(e)e.textContent=m||''}
+function showAuthScreen(){const s=$('authScreen');if(s){s.classList.remove('hide');authMsg('')}}
+function hideAuthScreen(){const s=$('authScreen');if(s)s.classList.add('hide')}
+function authUpdate(){const on=!!AUTH.token;
+ const chip=$('acctChip');if(chip){chip.innerHTML=on?`<b>${esc(AUTH.username)}</b><button id="chipOut">로그아웃</button>`:`<button id="chipLogin">로그인</button>`;
+  if(on&&$('chipOut'))$('chipOut').onclick=doLogout;if(!on&&$('chipLogin'))$('chipLogin').onclick=showAuthScreen}
+ const ma=$('mpAcct');if(ma){ma.innerHTML=on?`계정: <b style="color:#fff">${esc(AUTH.username)}</b> 로 로그인됨`:`게스트로 플레이 중 · <a id="mpLoginLink" style="color:var(--yel);cursor:pointer;text-decoration:underline">로그인</a>하면 이름 고정 + 기록 저장`;
+  if(!on&&$('mpLoginLink'))$('mpLoginLink').onclick=showAuthScreen}
+ if($('mpName')){if(on){$('mpName').value=AUTH.username;$('mpName').disabled=true}else{$('mpName').disabled=false}}}
+function doAuth(path){const u=($('asUser').value||'').trim(),p=$('asPass').value||'';if(!u||!p){authMsg('아이디와 비밀번호를 입력하세요');return}authMsg('처리 중…');
+ api('/api/'+path,{method:'POST',body:JSON.stringify({username:u,password:p})}).then(j=>{AUTH={token:j.token,username:j.username};saveAuth();$('asPass').value='';authMsg('');authUpdate();updSummary();hideAuthScreen()}).catch(e=>authMsg(e.message))}
+function doLogout(){AUTH={token:null,username:null};saveAuth();authUpdate();updSummary()}
+function submitLap(track,ms){if(!AUTH.token||!(ms>0))return;api('/api/laptime',{method:'POST',body:JSON.stringify({track,ms})}).then(()=>{if($('lbList'))loadLeaderboard(track)}).catch(()=>{})}
+function loadLeaderboard(track){const el=$('lbList');if(!el)return;track=track||OPT.track;el.innerHTML='<div class="lbEmpty">불러오는 중…</div>';
+ fetch('/api/leaderboard?track='+encodeURIComponent(track)).then(r=>r.json()).then(j=>{
+  if(!j||!j.rows){el.innerHTML='<div class="lbEmpty">순위를 불러올 수 없어요 (로그인 서버 미설정일 수 있어요).</div>';return}
+  if(!j.rows.length){el.innerHTML='<div class="lbEmpty">아직 등록된 기록이 없어요. 로그인하고 달려보세요.</div>';return}
+  el.innerHTML='<table><tbody>'+j.rows.map((r,i)=>`<tr class="${AUTH.username&&r.username===AUTH.username?'me':''}"><td style="width:28px;opacity:.6">${i+1}</td><td>${esc(r.username)}</td><td>${fmtT(r.ms/1000)}</td></tr>`).join('')+'</tbody></table>'})
+ .catch(()=>{el.innerHTML='<div class="lbEmpty">순위 서버에 연결할 수 없어요.</div>'})}
+if($('asLogin'))$('asLogin').addEventListener('click',()=>doAuth('login'));
+if($('asSignup'))$('asSignup').addEventListener('click',()=>doAuth('signup'));
+if($('asGuest'))$('asGuest').addEventListener('click',hideAuthScreen);
+if($('asPass'))$('asPass').addEventListener('keydown',e=>{if(e.key==='Enter')doAuth('login')});
+if(AUTH.token){hideAuthScreen();api('/api/me').then(j=>{AUTH.username=j.username;saveAuth();authUpdate()}).catch(()=>{AUTH={token:null,username:null};saveAuth();authUpdate();showAuthScreen()})}
+authUpdate();
 function wsUrl(s){s=(s||'').trim();if(!s){if(location.protocol==='http:'||location.protocol==='https:')return(location.protocol==='https:'?'wss://':'ws://')+location.host;return''}if(/^wss?:\/\//.test(s))return s;if(/^https:\/\//.test(s))return'wss://'+s.slice(8);if(/^http:\/\//.test(s))return'ws://'+s.slice(7);return'wss://'+s}
 function mpStatus(m){const e=$('mpStatus');if(e)e.textContent=m}
 function mpConfig(){return{track:OPT.track,laps:OPT.laps,abs:OPT.abs,tc:OPT.tc,steerAssist:OPT.steerAssist,line:OPT.line,aero:OPT.aero,tyre:OPT.tyre,pit:OPT.pit}}
@@ -1761,10 +1834,10 @@ function renderLobby(){const el=$('mpLobby');if(!el)return;if(!NET.on){el.innerH
  mpStatus(NET.host?'당신이 호스트 · 설정을 정하고 "그리드로 나가기"를 누르면 모두 함께 출발':'호스트가 시작하길 기다리는 중…')}
 function connectMP(create){audioInit();if(AC&&AC.state==='suspended')AC.resume().catch(()=>{});
  const url=wsUrl($('mpUrl').value);if(!url){mpStatus('서버 주소를 입력하세요 (예: https://내앱.onrender.com)');return}
- const name=($('mpName').value||'플레이어').trim().slice(0,16)||'플레이어',room=create?'':($('mpRoom').value||'').trim().toUpperCase();
+ const name=AUTH.token?AUTH.username:(($('mpName').value||'플레이어').trim().slice(0,16)||'플레이어'),room=create?'':($('mpRoom').value||'').trim().toUpperCase();
  if(!create&&!room){mpStatus('참가할 방 코드를 입력하세요');return}
  NET.close();mpStatus('연결 중…');
- NET.connect(url,room,{name,team:OPT.team,color:TEAMS[OPT.team][0],car:TEAMS[OPT.team][3],cmp:OPT.cmp},(ok,err)=>{if(!ok){mpStatus('연결 실패: '+(err||''));return}renderLobby()})}
+ NET.connect(url,room,{name,team:OPT.team,color:TEAMS[OPT.team][0],car:TEAMS[OPT.team][3],cmp:OPT.cmp,token:AUTH.token},(ok,err)=>{if(!ok){mpStatus('연결 실패: '+(err||''));return}renderLobby()})}
 function packState(c){const r2=v=>Math.round(v*100)/100,r3=v=>Math.round(v*1000)/1000;let fl=0;if(c.drs)fl|=1;if(c.boost)fl|=2;if(c.pit)fl|=4;if(c.flatN)fl|=8;
  return[r2(c.X),r2(c.Y),r3(c.psi),r3(c.delta),r2(c.wheel),r2(c.vx),c.gear,Math.round(c.rpm),r2(c.thr),r2(c.brk),Math.round(c.prog*10)/10,Math.floor(c.prog/T.L),fl,'SMH'.indexOf(c.cmp)]}
 function applyGhost(c){const b=NET.buf[c.netId];if(!b||!b.length)return;const now=performance.now(),tR=now-110;
@@ -1851,6 +1924,7 @@ function finish(){if(Q)return finishQ();state='done';$('replayBtn').parentNode.c
    return`<tr class="${c===player?'me':''}"><td>${i+1}</td><td><i style="background:${c.col}"></i>${c.code} <small style="opacity:.55">${TEAMS[c.team][3]}</small></td><td>${g}</td><td>${fmt(c.bestLap)}</td></tr>`}).join('');
   let all=null;const key='gp-best-'+T.id;try{all=parseFloat(localStorage.getItem(key))}catch(e){}
   if(player.bestLap&&(!all||player.bestLap<all)){all=player.bestLap;try{localStorage.setItem(key,all)}catch(e){}}
+  if(player.bestLap)submitLap(T.id,player.bestLap*1000);
   $('rBest').textContent=fmt(player.bestLap)+'  ·  트랙 최고 '+fmt(all||null);
   $('result').classList.remove('hide')},2500)}
 function qLap(lapN){const c=player;let lt=raceT-c.lapStart;if(Q.done){c.lapStart=raceT;c.lap=lapN;return}c.lapStart=raceT;c.lap=lapN;const tr=curTrace;curTrace=[];
@@ -1862,7 +1936,8 @@ function qLap(lapN){const c=player;let lt=raceT-c.lapStart;if(Q.done){c.lapStart
 function saveQ(tr){const id=T.id,lt=Q.best;let a=getRecs(id).filter(r=>r.id!==Q.id);
  a.push({id:Q.id,t:lt,pen:(Q.laps.find(l=>l.t===lt)||{}).pen||0,team:OPT.team,cmp:player.cmp,d:today(),as:(OPT.abs?1:0)+(OPT.tc?2:0)+(OPT.steerAssist?4:0)});a.sort((x,y)=>x.t-y.t);a=a.slice(0,10);setRecs(id,a);Q.saved=true;
  if(tr&&lt<Q.refT){Q.refT=lt;bestTrace=tr.map(v=>v==null?null:Math.round(v*1000)/1000);try{localStorage.setItem(trKey(id),JSON.stringify({t:lt,tr:bestTrace}))}catch(e){}}
- let b=null;try{b=parseFloat(localStorage.getItem('gp-best-'+id))}catch(e){}if(!b||lt<b){try{localStorage.setItem('gp-best-'+id,lt)}catch(e){}}}
+ let b=null;try{b=parseFloat(localStorage.getItem('gp-best-'+id))}catch(e){}if(!b||lt<b){try{localStorage.setItem('gp-best-'+id,lt)}catch(e){}}
+ submitLap(id,lt*1000)}
 function recRank(t){if(t==null)return null;return getRecs(T.id).filter(r=>r.t<t-1e-9).length+1}
 function recTable(id,hl){const a=getRecs(id);if(!a.length)return'<div class="recEmpty">아직 기록이 없어요. 퀄리파잉 모드로 달려 보세요.</div>';
  return'<table><tbody>'+a.map((r,i)=>{const tm=TEAMS[r.team]||TEAMS[0],cm=SIM.CMP[r.cmp]||SIM.CMP.M;
