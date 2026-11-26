@@ -1,0 +1,17 @@
+{
+  "name": "grandprix-mp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "그랑프리 드라이버 멀티플레이 서버 (WebSocket 릴레이 + 정적 서빙)",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
